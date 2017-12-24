@@ -11,7 +11,7 @@ RefineNetを使ってend-to-endのセグメンテーションを行う際には�
 いろいろな方のコードを参考にさせていただいていますが、特にChainerのモデルの一部を取り込むコードとして[こちら](https://qiita.com/tabe2314/items/6c0c1b769e12ab1e2614)で紹介されている方法を使っています。また解析結果をアルファブレンドして表示する部分などで[こちら](https://github.com/k3nt0w/chainer_fcn)のコードの一部を使わせていただいています。
 
 ## 使い方
-学習には、オリジナルの画像ファイルと対応するアノテーション済み画像が必要で、それぞれJPEG(xxx.jpg)、PNG(xxx.png)のフォーマットを想定しています。対応するペアのファイル名(xxxの部分)は一致している必要があります。xxxの部分をリストしたテキストファイルがあわせて必要です。アノテーション済み画像はindex formatのPNG(Pascal VOC2012など)やGrayScaleで学習データが提供されているもの(ADE20Kなど)についてはコードそのまま読めるはずです。data augmentationとしてはhorizontal flipとrandom scale/cropのコードをいれてあります。
+学習には、オリジナルの画像ファイルと対応するアノテーション済み画像が必要で、それぞれJPEG(xxx.jpg)、PNG(xxx.png)のフォーマットを想定しています。対応するペアのファイル名(xxxの部分)は一致している必要があります。また、xxxの部分をリストしたテキストファイルがあわせて必要です。アノテーション済み画像はindex formatのPNG(Pascal VOC2012など)やGrayScaleで学習データが提供されているもの(ADE20Kなど)についてはコードそのまま読めるはずです。data augmentationとしてはhorizontal flipとrandom scale/cropのコードをいれてあります。
 
 オリジナルファイルとアノテーションファイルが以下のようにあるとすれば  
 images/aaa.jpg  
