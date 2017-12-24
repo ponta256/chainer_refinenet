@@ -33,8 +33,6 @@ def load_data(path, crop=False, mode="label", xp=np, hflip=False, rscale=False, 
         xs = (w-224)//2
         ys = 0
       
-  # print(size, w, h)
-  # print(xs, ys)
   if mode=="label":
     y = xp.asarray(img, dtype=xp.int32)
     y = y[ys:ys+224,xs:xs+224]
@@ -50,6 +48,12 @@ def load_data(path, crop=False, mode="label", xp=np, hflip=False, rscale=False, 
 
   elif mode=="data":
     mean = np.array([103.939, 116.779, 123.68])
+    # print(img.size, img.mode)
+    if img.mode == 'L':
+      rgbimg = Image.new("RGB", img.size)
+      rgbimg.paste(img)
+      img = rgbimg
+      
     img -= mean
     x = xp.asarray(img, dtype=xp.float32)
     x = x.transpose(2, 0, 1)
