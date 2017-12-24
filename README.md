@@ -1,4 +1,4 @@
-# chainer_refinnet
+# chainer_refinenet
 
 ディープラーニングを用いたセグメンテーション手法の一つであるRefineNetのChainer実装です。
 
