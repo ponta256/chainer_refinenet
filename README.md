@@ -27,7 +27,7 @@ bbb
 ccc  
 
 学習を行うコマンドは以下のようになります。  
-$ python train.py -g 1 -tt  train.txt -tr ./images/ -ta ./annotations/ -e 500 -b 16 --lr=0.0001
+`$ python train.py -g 1 -tt  train.txt -tr ./images/ -ta ./annotations/ -e 500 -b 16 --lr=0.0001`
 
 引数の定義は以下  
 -g GPU番号  
@@ -46,8 +46,24 @@ Note: refinenet.pyにクラス数をハードコードしている部分があ�
 定量評価などはまだ行なっていないのですが、以下はVOC2012で140エポック学習した重みを使った推定例です。
 Note: predect.pyにクラス数をハードコードしている部分があるので必要に応じて変更してください。  
 NOte: GPU使えるようにしてませんでした。しばしお待ちを。  
-$ python predict.py -i ./data/voc2012_images/2011_003256.jpg -w weight/chainer_refinenet_140.weight  
 
-$ python predict.py -i ./data/voc2012_images/2011_003242.jpg -w weight/chainer_refinenet_140.weight  
+`$ python predict.py -i ./data/voc2012_images/2011_003242.jpg -w weight/chainer_refinenet_140.weight`
+
+prediction (テストデータ)  
+![推定結果](https://raw.githubusercontent.com/ponta256/images/master/2011_003242_pred.jpg)
+
+original (テストデータ)  
+![オリジナル画像](https://raw.githubusercontent.com/ponta256/images/master/2011_003242_origin.jpg)
+
+`$ python predict.py -i ./data/voc2012_images/2011_003256.jpg -w weight/chainer_refinenet_140.weight`
+
+prediction (学習データ)  
+![推定結果](https://raw.githubusercontent.com/ponta256/images/master/2011_003256_pred.jpg)
+
+Ground Truth (学習データ)  
+![Ground Truth](https://raw.githubusercontent.com/ponta256/images/master/2011_003256_ground_truth.png)
+
+original (学習データ)  
+![オリジナル画像](https://raw.githubusercontent.com/ponta256/images/master/2011_003256_origin.jpg)
 
 論文の解釈や実装が間違っている部分にお気づきの方はご指摘いただければありがたく思います。
