@@ -1,5 +1,5 @@
 import chainer
-from chainer import serializers
+from chainer import cuda, optimizers, serializers, Variable
 import numpy as np
 from PIL import Image
 import os
@@ -22,26 +22,35 @@ color_map = make_color_map()
 model = RefineResNet()
 serializers.load_npz(args.weight, model)
 
+if args.gpu >= 0:
+  chainer.cuda.get_device(args.gpu).use()
+  model.to_gpu()
+
+xp = np if args.gpu < 0 else cuda.cupy
+
 img = Image.open(args.image_path)
 img = img.resize((224,224))
 mean = np.array([103.939, 116.779, 123.68])
 img -= mean
-x = np.asarray(img, dtype=np.float32)
+x = xp.asarray(img, dtype=xp.float32)
 x = x.transpose(2, 0, 1)
-x = np.expand_dims(x, axis=0)
+x = xp.expand_dims(x, axis=0)
 
 with chainer.using_config('train', False):
   pred = model(x).data
 
-print(pred[0].shape)
+# print(pred[0].shape)
 x = pred[0].copy()
 
 pred = pred[0].argmax(axis=0)
 
 row, col = pred.shape
-dst = np.ones((row, col, 3))
+dst = xp.ones((row, col, 3))
 for i in range(21):
   dst[pred == i] = color_map[i]
+
+if args.gpu >= 0:
+  dst = cuda.to_cpu(dst)
 img = Image.fromarray(np.uint8(dst))
 
 b,g,r = img.split()
@@ -82,3 +91,5 @@ os.remove("out/pred.png")
 cv2.imshow("image", pred) 
 while cv2.waitKey(33) != 27:
   pass
+
+cv2.imwrite("out.jpg", pred) 
