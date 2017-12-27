@@ -35,7 +35,7 @@ bbb
 ccc  
 
 学習を行うコマンドは以下のようになります。  
-`$ python train.py -g 1 -tt  train.txt -tr ./images/ -ta ./annotations/ -e 500 -b 16 --lr=0.0001`
+`$ python train.py -g 1 -tt  train.txt -tr ./images/ -ta ./annotations/ -e 500 -b 16 -n 21 -l 0.0001`
 
 引数の定義は以下  
 -g GPU番号  
@@ -43,18 +43,16 @@ ccc
 -tr オリジナル画像ディレクトリ  
 -ta アノテーション画像ディレクトリ  
 -e エポック数  
--b バッチサイズ  
---lr 学習率  
+-b バッチサイズ
+-n クラス数  
+-l 学習率  
 
 OptimizerにAdamを使っているので学習率はalphaの値です。10エポック、50エポック、以降100エポックごとに学習率を1/10にしています。10エポックごとにweightファイルを吐き出すようにしてあります。
 
-Note: refinenet.pyにクラス数をハードコードしている部分があるので必要に応じて変更してください。
-
 ## 実行例
 定量評価などはまだ行なっていないのですが、以下はVOC2012で140エポック学習した重みを使った推定例です。
-Note: predect.pyにクラス数をハードコードしている部分があるので必要に応じて変更してください。  
 
-`$ python predict.py -i ./data/voc2012_images/2011_003242.jpg -w weight/chainer_refinenet_140.weight`
+`$ python predict.py -i ./data/voc2012_images/2011_003242.jpg -g 1 -n 21 -w weight/chainer_refinenet_140.weight`
 
 prediction (テストデータ)  
 ![推定結果](https://raw.githubusercontent.com/ponta256/images/master/2011_003242_pred.jpg)
@@ -63,6 +61,12 @@ original (テストデータ)
 ![オリジナル画像](https://raw.githubusercontent.com/ponta256/images/master/2011_003242_origin.jpg)
 
 `$ python predict.py -i ./data/voc2012_images/2011_003256.jpg -w weight/chainer_refinenet_140.weight`
+
+引数の定義は以下  
+-g GPU番号  
+-w 学習済みのウェイトファイル  
+-n クラス数  
+-i 推定対象の画像  
 
 prediction (学習データ)  
 ![推定結果](https://raw.githubusercontent.com/ponta256/images/master/2011_003256_pred.jpg)

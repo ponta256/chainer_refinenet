@@ -80,7 +80,7 @@ class RefineNet(chainer.Chain):
 
 class RefineResNet(chainer.Chain):
 
-  def __init__(self):
+  def __init__(self, class_num):
     super(RefineResNet, self).__init__()
     with self.init_scope():
       self.conv1 = L.Convolution2D(
@@ -110,8 +110,7 @@ class RefineResNet(chainer.Chain):
       self.rcu1 = RCU(fn0)
       self.rcu2 = RCU(fn0)
 
-      num_class = 21
-      self.final =L.Convolution2D(fn0, num_class, 1, stride=1, pad=0)
+      self.final =L.Convolution2D(fn0, class_num, 1, stride=1, pad=0)
 
   def __call__(self, x, t=None, train=False, test=False):    
     h = self.bn1(self.conv1(x))

@@ -51,6 +51,7 @@ parser.add_argument('--batchsize', '-b', type=int, default=1,
 parser.add_argument('--initmodel', '-i', default=None, type=str,
           help='initialize the model from given file')
 parser.add_argument('--epoch', '-e', default=2, type=int)
+parser.add_argument('--class_num', '-n', default=21, type=int)
 parser.add_argument('--lr', '-l', default=1e-4, type=float)
 args = parser.parse_args()
 
@@ -67,7 +68,7 @@ n_data = len(names)
 n_iter = n_data // batchsize
 gpu_flag = True if args.gpu > 0 else False
 
-model = RefineResNet()
+model = RefineResNet(args.class_num)
 
 if args.initmodel:
   serializers.load_npz(args.initmodel, model)

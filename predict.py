@@ -11,15 +11,16 @@ from color_map import make_color_map
 
 parser = argparse.ArgumentParser(description='RefineNet on Chainer (predict)')
 parser.add_argument('--gpu', '-g', default=-1, type=int,
-          help='GPU ID (negative value indicates CPU)')
+                    help='GPU ID (negative value indicates CPU)')
 parser.add_argument('--image_path', '-i', default=None, type=str)
+parser.add_argument('--class_num', '-n', default=21, type=int)
 parser.add_argument('--weight', '-w', default="weight/chainer_fcn.weight", type=str)
 args = parser.parse_args()
 
 img_name = args.image_path.split("/")[-1].split(".")[0]
 
 color_map = make_color_map()
-model = RefineResNet()
+model = RefineResNet(args.class_num)
 serializers.load_npz(args.weight, model)
 
 if args.gpu >= 0:
@@ -46,7 +47,7 @@ pred = pred[0].argmax(axis=0)
 
 row, col = pred.shape
 dst = xp.ones((row, col, 3))
-for i in range(21):
+for i in range(args.class_num):
   dst[pred == i] = color_map[i]
 
 if args.gpu >= 0:
