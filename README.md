@@ -54,6 +54,12 @@ OptimizerにAdamを使っているので学習率はalphaの値です。10エポ
 
 `$ python predict.py -i ./data/voc2012_images/2011_003242.jpg -g 1 -n 21 -w weight/chainer_refinenet_140.weight`
 
+引数の定義は以下  
+-g GPU番号  
+-w 学習済みのウェイトファイル  
+-n クラス数  
+-i 推定対象の画像  
+
 prediction (テストデータ)  
 ![推定結果](https://raw.githubusercontent.com/ponta256/images/master/2011_003242_pred.jpg)
 
@@ -61,12 +67,6 @@ original (テストデータ)
 ![オリジナル画像](https://raw.githubusercontent.com/ponta256/images/master/2011_003242_origin.jpg)
 
 `$ python predict.py -i ./data/voc2012_images/2011_003256.jpg -w weight/chainer_refinenet_140.weight`
-
-引数の定義は以下  
--g GPU番号  
--w 学習済みのウェイトファイル  
--n クラス数  
--i 推定対象の画像  
 
 prediction (学習データ)  
 ![推定結果](https://raw.githubusercontent.com/ponta256/images/master/2011_003256_pred.jpg)
