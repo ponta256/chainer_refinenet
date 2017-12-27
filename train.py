@@ -51,6 +51,7 @@ parser.add_argument('--batchsize', '-b', type=int, default=1,
 parser.add_argument('--initmodel', '-i', default=None, type=str,
           help='initialize the model from given file')
 parser.add_argument('--epoch', '-e', default=2, type=int)
+parser.add_argument('--class_num', '-n', default=21, type=int)
 parser.add_argument('--lr', '-l', default=1e-4, type=float)
 args = parser.parse_args()
 
