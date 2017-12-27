@@ -68,7 +68,7 @@ n_data = len(names)
 n_iter = n_data // batchsize
 gpu_flag = True if args.gpu > 0 else False
 
-model = RefineResNet()
+model = RefineResNet(args.class_num)
 
 if args.initmodel:
   serializers.load_npz(args.initmodel, model)
