@@ -40,6 +40,7 @@ def copy_model(src, dst):
         b[1].data = a[1].data
       # print('Copy %s' % child.name)
 
+# entry point
 parser = argparse.ArgumentParser(description='RefineNet on Chainer (train)')
 parser.add_argument('--gpu', '-g', default=-1, type=int,
           help='GPU ID (negative value indicates CPU)')
@@ -157,4 +158,3 @@ for epoch in range(1, n_epoch+1):
 
 serializers.save_npz('weight/chainer_refinenet_final.weight', model)
 serializers.save_npz('weight/chainer_refinenet_final.state', optimizer)
-
