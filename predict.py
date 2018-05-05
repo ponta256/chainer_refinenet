@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
   if args.gpu >= 0:
     dst = cuda.to_cpu(dst)
-    img = Image.fromarray(np.uint8(dst))
+  img = Image.fromarray(np.uint8(dst))
 
   b,g,r = img.split()
   img = Image.merge("RGB", (r, g, b))
