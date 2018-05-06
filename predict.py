@@ -50,7 +50,20 @@ if __name__ == '__main__':
 
   xp = np if args.gpu < 0 else cuda.cupy
   dst = xp.ones((row, col, 3))
+  
+  for i in range(args.class_num):
+    dst[pred == i] = i
+  if args.gpu >= 0:
+    dst = cuda.to_cpu(dst)
+  img = Image.fromarray(np.uint8(dst))
 
+  # output prediction bmp image
+  o = Image.open(args.image_path)
+  ow, oh = o.size
+  img = img.resize((ow, oh))
+  img.save('pred.bmp')
+
+  dst = xp.ones((row, col, 3))
   color_map = make_color_map()
   for i in range(args.class_num):
     dst[pred == i] = color_map[i]
@@ -90,10 +103,8 @@ if __name__ == '__main__':
   os.remove("out/original.jpg")
   os.remove("out/pred.png")
 
-  cv2.imshow("image", pred) 
-  while cv2.waitKey(33) != 27:
-    pass
+  # cv2.imshow("image", pred)
+  # while cv2.waitKey(33) != 27:
+  #  pass
 
   cv2.imwrite("out.jpg", pred)
-
-
